@@ -1,0 +1,36 @@
+worker_processes  1;
+
+events {
+    worker_connections  256;
+}
+
+error_log  /tmp/openresty_testing_error.log  info;
+pid /tmp/openresty_testing.pid;
+
+env PROJECT_ROOT;
+
+http {
+    # use the special notation ${prefix} which is passed by argument `-p`
+    # when starting nginx server
+    lua_package_path "${prefix}?.lua;${prefix}src/?.lua;${prefix}src/libs/?.lua;${prefix}tests/?.lua;;";
+
+    server {
+        listen 18888;
+        server_name localhost;
+
+        set_by_lua_block $PROJECT_ROOT {
+            return os.getenv("PROJECT_ROOT")
+        }
+
+        # __run_tests should not be conflict with endpoints defined
+        # in the config file `nginx.conf.dist`
+        location /__run_tests {
+            content_by_lua_file $PROJECT_ROOT/tests/bootstrap.lua;
+        }
+
+        # include the minimal configs for production, so we can call
+        # test endpoints by subrequest.
+        include nginx.conf.dist;
+    }
+}
+

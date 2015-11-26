@@ -1,0 +1,26 @@
+{
+  "name": "acadine/glutton",
+
+  "version": "0.1",
+
+  "repositories": [{
+    "type": "vcs",
+    "url": "git@git.acadine.com:platform-dept/slim-test-helpers.git"
+  }],
+
+  "require": {
+    "slim/slim": "2.6.2",
+    "vlucas/phpdotenv": "~2.0.1"
+  },
+
+  "require-dev": {
+    "phpunit/phpunit": "~4.8",
+    "there4/slim-test-helpers": "dev-v0.9.4-authorization",
+    "psy/psysh": "~0.5.2",
+    "fabpot/php-cs-fixer": "*"
+  },
+
+  "autoload": {
+    "psr-4": {"__YOUR_NAMESPACE__\\": "app/"}
+  }
+}

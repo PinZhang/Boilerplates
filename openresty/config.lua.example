@@ -1,0 +1,5 @@
+local CONFIG = {
+    server_name = 'OpenResty Boilerplate'
+}
+
+return CONFIG
