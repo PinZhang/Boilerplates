@@ -1,0 +1,27 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: service-mysql
+    environment:
+      MYSQL_DATABASE: demo
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    ports:
+      - "3306:3306"
+    restart: always
+  redis:
+    image: grokzen/redis-cluster
+    container_name: service-redis
+    ports:
+      - "9000:7000"
+      - "9001:7001"
+      - "9002:7002"
+      - "9003:7003"
+      - "9004:7004"
+      - "9005:7005"
+      - "9006:7006"
+      - "9007:7007"
+    restart: always
+    environment:
+      IP: "0.0.0.0"
+
